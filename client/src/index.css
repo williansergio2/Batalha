@@ -1,0 +1,281 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+/* ==========================================================
+   BATALHA ARTIGOS CIVIS E MILITARES — Design System
+   Philosophy: Tático Moderno / Equipamento de Campo
+   Dark background #1E1E1E, Green accents #5D6532 / #9EAB54
+   Typography: Oswald (display) + Nunito Sans (body)
+   ========================================================== */
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+}
+
+:root {
+  /* Military color palette */
+  --mil-green: #5D6532;
+  --mil-green-light: #9EAB54;
+  --mil-green-dark: #494F27;
+  --mil-black: #1E1E1E;
+  --mil-dark: #141410;
+  --mil-surface: #252520;
+  --mil-surface-2: #2E2E28;
+  --mil-border: rgba(93, 101, 50, 0.3);
+  --mil-text: #F5F5F5;
+  --mil-text-muted: #A0A090;
+
+  /* Tailwind tokens */
+  --radius: 0.25rem;
+  --background: oklch(0.12 0.008 100);
+  --foreground: oklch(0.96 0.005 90);
+  --card: oklch(0.15 0.008 100);
+  --card-foreground: oklch(0.96 0.005 90);
+  --popover: oklch(0.15 0.008 100);
+  --popover-foreground: oklch(0.96 0.005 90);
+  --primary: oklch(0.42 0.07 110);
+  --primary-foreground: oklch(0.96 0.005 90);
+  --secondary: oklch(0.18 0.008 100);
+  --secondary-foreground: oklch(0.85 0.005 90);
+  --muted: oklch(0.18 0.008 100);
+  --muted-foreground: oklch(0.6 0.01 90);
+  --accent: oklch(0.55 0.1 110);
+  --accent-foreground: oklch(0.12 0.008 100);
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: oklch(0.25 0.015 100);
+  --input: oklch(0.22 0.01 100);
+  --ring: oklch(0.55 0.1 110);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Nunito Sans', sans-serif;
+    background-color: #1E1E1E;
+    color: #F5F5F5;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Oswald', sans-serif;
+    letter-spacing: 0.02em;
+  }
+
+  button:not(:disabled),
+  [role="button"]:not([aria-disabled="true"]),
+  a[href] {
+    @apply cursor-pointer;
+  }
+}
+
+@layer components {
+  .container {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .flex {
+    min-height: 0;
+    min-width: 0;
+  }
+
+  @media (min-width: 640px) {
+    .container {
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .container {
+      padding-left: 2rem;
+      padding-right: 2rem;
+      max-width: 1280px;
+    }
+  }
+
+  /* Military tactical button */
+  .btn-military {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.75rem;
+    background-color: var(--mil-green);
+    color: #F5F5F5;
+    font-family: 'Oswald', sans-serif;
+    font-size: 0.875rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    border: 1px solid var(--mil-green);
+    transition: all 0.2s cubic-bezier(0.23, 1, 0.32, 1);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .btn-military::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--mil-green-light);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.25s cubic-bezier(0.23, 1, 0.32, 1);
+    z-index: 0;
+  }
+
+  .btn-military:hover::before {
+    transform: scaleX(1);
+  }
+
+  .btn-military > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  .btn-military:active {
+    transform: scale(0.97);
+  }
+
+  /* Outline variant */
+  .btn-military-outline {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.75rem;
+    background-color: transparent;
+    color: var(--mil-green-light);
+    font-family: 'Oswald', sans-serif;
+    font-size: 0.875rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    border: 1px solid var(--mil-green);
+    transition: all 0.2s cubic-bezier(0.23, 1, 0.32, 1);
+  }
+
+  .btn-military-outline:hover {
+    background-color: var(--mil-green);
+    color: #F5F5F5;
+  }
+
+  .btn-military-outline:active {
+    transform: scale(0.97);
+  }
+
+  /* Section number badge */
+  .section-number {
+    font-family: 'Oswald', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 400;
+    letter-spacing: 0.2em;
+    color: var(--mil-green-light);
+    text-transform: uppercase;
+  }
+
+  /* Tactical card */
+  .tactical-card {
+    background: rgba(37, 37, 32, 0.8);
+    border: 1px solid var(--mil-border);
+    backdrop-filter: blur(8px);
+    transition: all 0.25s cubic-bezier(0.23, 1, 0.32, 1);
+  }
+
+  .tactical-card:hover {
+    border-color: var(--mil-green);
+    box-shadow: 0 0 20px rgba(93, 101, 50, 0.2);
+    transform: translateY(-2px);
+  }
+
+  /* Corner bracket decoration */
+  .corner-bracket {
+    position: relative;
+  }
+
+  .corner-bracket::before,
+  .corner-bracket::after {
+    content: '';
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    border-color: var(--mil-green-light);
+    border-style: solid;
+  }
+
+  .corner-bracket::before {
+    top: -1px;
+    left: -1px;
+    border-width: 2px 0 0 2px;
+  }
+
+  .corner-bracket::after {
+    bottom: -1px;
+    right: -1px;
+    border-width: 0 2px 2px 0;
+  }
+
+  /* WhatsApp pulse button */
+  @keyframes whatsapp-pulse {
+    0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.5); }
+    70% { box-shadow: 0 0 0 12px rgba(37, 211, 102, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+  }
+
+  .whatsapp-float {
+    animation: whatsapp-pulse 2s infinite;
+  }
+
+  /* Diagonal section divider */
+  .diagonal-divider {
+    clip-path: polygon(0 0, 100% 4%, 100% 100%, 0 100%);
+    margin-top: -3rem;
+    padding-top: 4rem;
+  }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #1E1E1E;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--mil-green);
+    border-radius: 3px;
+  }
+}
